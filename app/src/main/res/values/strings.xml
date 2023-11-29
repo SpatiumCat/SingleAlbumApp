@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SingleAlbumApp</string>
+    <string name="textview_album">ALBUM</string>
 </resources>
