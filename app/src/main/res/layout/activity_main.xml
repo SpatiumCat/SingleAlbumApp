@@ -78,22 +78,26 @@
         android:textColor="@color/secondary_name"/>
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/cardPlayButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/btn_star"
+        android:src="@drawable/play_circle_filled_48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/year"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="16dp"/>
+        android:layout_marginStart="16dp"
+        android:background="@color/white"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/trackList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        android:layout_marginTop="20dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/cardPlayButton"
+        android:layout_marginTop="20dp"
+        tools:listitem="@layout/card_song"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
