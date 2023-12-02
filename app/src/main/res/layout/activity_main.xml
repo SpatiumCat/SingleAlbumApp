@@ -7,12 +7,97 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textViewAlbum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/textview_album"
+        android:textColor="@color/secondary_name"
+        android:textSize="@dimen/text_size_common"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/albumName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="One More Light Live"
+        android:textSize="@dimen/text_size_album_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAlbum"
+        android:textColor="@color/primary_text"/>
+
+    <TextView
+        android:id="@+id/textViewArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Artist:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/albumName"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textSize="@dimen/text_size_common"
+        android:textColor="@color/secondary_name"/>
+
+    <TextView
+        android:id="@+id/artistName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Linkin Park"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewArtist"
+        app:layout_constraintStart_toEndOf="@+id/textViewArtist"
+        app:layout_constraintTop_toTopOf="@+id/textViewArtist"
+        android:layout_marginStart="8dp"
+        android:textSize="@dimen/text_size_common"
+        android:textColor="@color/primary_text"/>
+
+    <TextView
+        android:id="@+id/year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2017"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewArtist"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:textSize="@dimen/text_size_common"
+        android:textColor="@color/secondary_name" />
+
+    <TextView
+        android:id="@+id/genre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alternative"
+        app:layout_constraintBottom_toBottomOf="@+id/year"
+        app:layout_constraintStart_toEndOf="@+id/year"
+        app:layout_constraintTop_toTopOf="@+id/year"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/secondary_name"/>
+
+    <ImageButton
+        android:id="@+id/cardPlayButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/play_circle_filled_48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/year"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/white"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/trackList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardPlayButton"
+        android:layout_marginTop="20dp"
+        tools:listitem="@layout/card_song"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/cardPauseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:src="@drawable/pause_circle_filled_24"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/cardPlayButton"
+            app:layout_constraintEnd_toEndOf="@+id/cardPlayButton"
+            app:layout_constraintStart_toStartOf="@+id/cardPlayButton"
+            app:layout_constraintTop_toTopOf="@+id/cardPlayButton" />
+
+
+        <ImageButton
+            android:id="@+id/cardPlayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
+            android:src="@drawable/play_circle_filled_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cardSongName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Talking to myself"
+            android:textColor="@color/primary_text"
+            app:layout_constraintBottom_toBottomOf="@+id/cardPlayButton"
+            app:layout_constraintStart_toEndOf="@+id/cardPlayButton"
+            app:layout_constraintTop_toTopOf="@+id/cardPlayButton" />
+
+        <TextView
+            android:id="@+id/cardAlbumName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="One More Light Live"
+            android:textColor="@color/secondary_name"
+            app:layout_constraintBottom_toBottomOf="@+id/cardSongName"
+            app:layout_constraintEnd_toStartOf="@+id/cardLikeButton"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/cardSongName"
+            app:layout_constraintTop_toTopOf="@+id/cardSongName" />
+
+        <TextView
+            android:id="@+id/cardDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="4:13"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cardAlbumName" />
+
+        <ImageButton
+            android:id="@+id/cardDeleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@color/white"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:src="@drawable/block_24"
+            app:layout_constraintBottom_toBottomOf="@+id/cardDuration"
+            app:layout_constraintEnd_toStartOf="@+id/cardDuration"
+            app:layout_constraintTop_toTopOf="@+id/cardDuration" />
+
+        <ImageButton
+            android:id="@+id/cardLikeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/white"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:src="@drawable/like_24"
+            app:layout_constraintBottom_toBottomOf="@+id/cardDeleteButton"
+            app:layout_constraintEnd_toStartOf="@+id/cardDeleteButton"
+            app:layout_constraintTop_toTopOf="@+id/cardDeleteButton" />
+
+        <ImageButton
+            android:id="@+id/cardMenuButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/cardDuration"
+            app:layout_constraintEnd_toEndOf="@+id/cardDuration"
+            app:layout_constraintStart_toStartOf="@+id/cardDuration"
+            app:layout_constraintTop_toTopOf="@+id/cardDuration" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>
