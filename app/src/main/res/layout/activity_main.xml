@@ -78,7 +78,7 @@
         android:textColor="@color/secondary_name"/>
 
     <ImageButton
-        android:id="@+id/cardPlayButton"
+        android:id="@+id/playButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/play_circle_filled_48"
@@ -88,6 +88,18 @@
         android:layout_marginStart="16dp"
         android:background="@color/white"/>
 
+    <ImageButton
+        android:id="@+id/pauseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:visibility="invisible"
+        android:src="@drawable/pause_circle_filled_48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/year" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trackList"
         android:layout_width="match_parent"
@@ -95,9 +107,41 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardPlayButton"
+        app:layout_constraintTop_toBottomOf="@+id/playButton"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="8dp"
         tools:listitem="@layout/card_song"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/trackList"
+        app:layout_constraintEnd_toEndOf="@+id/trackList"
+        app:layout_constraintStart_toStartOf="@+id/trackList"
+        app:layout_constraintTop_toTopOf="@+id/trackList" />
+
+    <Button
+        android:id="@+id/retryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/retry_button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/trackList"
+        app:layout_constraintTop_toTopOf="@+id/trackList" />
+
+    <TextView
+        android:id="@+id/emptyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_common"
+        android:text="@string/empty_list"
+        app:layout_constraintBottom_toBottomOf="@+id/trackList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/trackList"
+        app:layout_constraintTop_toTopOf="@+id/trackList" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

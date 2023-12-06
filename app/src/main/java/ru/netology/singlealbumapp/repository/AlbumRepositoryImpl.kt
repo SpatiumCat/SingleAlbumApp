@@ -17,13 +17,13 @@ class AlbumRepositoryImpl : AlbumRepository {
     private val gson = Gson()
 
     companion object {
-        private const val BASE_URL =
+        private const val JSON_URL =
             "https://github.com/netology-code/andad-homeworks/raw/master/09_multimedia/data/album.json"
     }
 
     override suspend fun getAlbum(): Album {
         val request = Request.Builder()
-            .url(BASE_URL)
+            .url(JSON_URL)
             .build()
 
         return client.newCall(request)

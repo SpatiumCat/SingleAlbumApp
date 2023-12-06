@@ -2,6 +2,7 @@ package ru.netology.singlealbumapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,12 +10,12 @@ import ru.netology.singlealbumapp.databinding.CardSongBinding
 import ru.netology.singlealbumapp.dto.Track
 
 interface OnInteractionListener {
-    fun onPlay()
+    fun onPlay(track: Track)
     fun onPause()
 }
 
 class TrackAdapter(
-    private val albumName: String,
+    var albumName: String,
     private val onInteractionListener: OnInteractionListener
 ): ListAdapter<Track, TrackViewHolder>(TrackDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
@@ -36,10 +37,13 @@ class TrackViewHolder(
     fun bind(albumName: String, track: Track) {
         binding.apply {
             cardAlbumName.text = albumName
-            cardSongName.text = track.file.splitToSequence(".mp3").toString()
+            cardSongName.text = track.file.split(".mp3")[0]
+            cardPlayButton.isVisible = !track.isNowPlaying
+            cardPauseButton.isVisible = track.isNowPlaying
+
 
             cardPlayButton.setOnClickListener{
-                onInteractionListener.onPlay()
+                onInteractionListener.onPlay(track)
             }
             cardPauseButton.setOnClickListener {
                 onInteractionListener.onPause()
