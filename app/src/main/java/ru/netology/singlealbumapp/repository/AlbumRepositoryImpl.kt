@@ -12,6 +12,8 @@ class AlbumRepositoryImpl : AlbumRepository {
 
     private val client = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
         .build()
     private val typeToken = object : TypeToken<Album>() {}
     private val gson = Gson()

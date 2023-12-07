@@ -58,6 +58,6 @@ class TrackDiffCallback: DiffUtil.ItemCallback<Track>() {
     }
 
     override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {
-        return oldItem.file == newItem.file
+        return (oldItem.file == newItem.file) && (oldItem.isNowPlaying == newItem.isNowPlaying)
     }
 }

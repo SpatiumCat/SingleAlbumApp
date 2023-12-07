@@ -23,12 +23,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", "\" https://raw.githubusercontent.com/netology-code/andad-homeworks/master/09_multimedia/data/\""
-            manifestPlaceholders.usesCleartextTraffic = false
+            buildConfigField "String", "BASE_URL", "\"https://raw.githubusercontent.com/netology-code/andad-homeworks/master/09_multimedia/data/\""
+            //manifestPlaceholders.usesCleartextTraffic = false
         }
         debug {
-            manifestPlaceholders.usesCleartextTraffic = true
-            buildConfigField "String", "BASE_URL", "\" https://raw.githubusercontent.com/netology-code/andad-homeworks/master/09_multimedia/data/\""
+            //manifestPlaceholders.usesCleartextTraffic = true
+            buildConfigField "String", "BASE_URL", "\"https://raw.githubusercontent.com/netology-code/andad-homeworks/master/09_multimedia/data/\""
         }
     }
     compileOptions {

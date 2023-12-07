@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onPlay(track: Track) {
                     observer.apply {
                         viewModel.setAllTracksNotPlaying()
+                        mediaPlayer?.reset()
                         mediaPlayer?.setDataSource(BuildConfig.BASE_URL + track.file)
                         viewModel.setTrackPlaying(track)
                         viewModel.isFirstTimePlayFlag = false
@@ -37,7 +38,6 @@ class MainActivity : AppCompatActivity() {
                             } ?: return@setOnCompletionListener
                             it.setDataSource(BuildConfig.BASE_URL + nextTrack.file)
                             viewModel.setTrackPlaying(track)
-                            observer.play()
                         }
                     }.play()
                 }
@@ -58,6 +58,8 @@ class MainActivity : AppCompatActivity() {
                 artistName.text = state.album.artist
                 year.text = state.album.published
                 genre.text = state.album.genre
+                pauseButton.isVisible = observer.mediaPlayer?.isPlaying ?: false
+                playButton.isVisible = !observer.mediaPlayer?.isPlaying!! ?: true
             }
             adapter.albumName = state.album.title
             adapter.submitList(state.album.tracks)

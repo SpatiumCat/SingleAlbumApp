@@ -13,13 +13,14 @@
             android:id="@+id/cardPauseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:background="@color/white"
             android:src="@drawable/pause_circle_filled_24"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/cardPlayButton"
-            app:layout_constraintEnd_toEndOf="@+id/cardPlayButton"
-            app:layout_constraintStart_toStartOf="@+id/cardPlayButton"
-            app:layout_constraintTop_toTopOf="@+id/cardPlayButton" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <ImageButton
