@@ -4,4 +4,5 @@ import ru.netology.singlealbumapp.dto.Album
 
 interface AlbumRepository {
     suspend fun getAlbum(): Album
+    suspend fun getLimit()
 }

@@ -12,7 +12,7 @@ import ru.netology.singlealbumapp.repository.AlbumRepository
 import ru.netology.singlealbumapp.repository.AlbumRepositoryImpl
 import java.io.IOException
 
-class AlbumViewModel: ViewModel() {
+class AlbumViewModel : ViewModel() {
 
     private val repository: AlbumRepository = AlbumRepositoryImpl()
 
@@ -21,11 +21,14 @@ class AlbumViewModel: ViewModel() {
         get() = _data
 
     var isFirstTimePlayFlag: Boolean = true
-        init {
+    private var playingTrack: Track? = null
+
+    init {
         getAlbum()
+        getLimit()
     }
 
-    fun getAlbum () {
+    fun getAlbum() {
         _data.value = FeedModel(loading = true)
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -41,7 +44,8 @@ class AlbumViewModel: ViewModel() {
         }
     }
 
-    fun setTrackPlaying (track: Track) {
+    fun setTrackPlaying(track: Track) {
+        playingTrack = track.copy(isNowPlaying = true)
         val model = _data.value ?: return
         _data.value = model.copy(
             album = model.album.copy(
@@ -52,7 +56,8 @@ class AlbumViewModel: ViewModel() {
         )
     }
 
-    fun setTrackNotPlaying (track: Track) {
+    fun setTrackNotPlaying(track: Track) {
+        playingTrack = null
         val model = _data.value ?: return
         _data.value = model.copy(
             album = model.album.copy(
@@ -62,6 +67,7 @@ class AlbumViewModel: ViewModel() {
             )
         )
     }
+
     fun setAllTracksNotPlaying() {
         val model = _data.value ?: return
         _data.value = model.copy(
@@ -73,6 +79,14 @@ class AlbumViewModel: ViewModel() {
         )
     }
 
+    fun getPlayingTrack(): Track? {
+        return playingTrack
+    }
 
+    private fun getLimit() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getLimit()
+        }
+    }
 
 }

@@ -40,6 +40,10 @@ class TrackViewHolder(
             cardSongName.text = track.file.split(".mp3")[0]
             cardPlayButton.isVisible = !track.isNowPlaying
             cardPauseButton.isVisible = track.isNowPlaying
+            cardDeleteButton.isVisible = track.isNowPlaying
+            cardLikeButton.isVisible = track.isNowPlaying
+            cardDuration.isVisible = !track.isNowPlaying
+            cardMenuButton.isVisible= track.isNowPlaying
 
 
             cardPlayButton.setOnClickListener{

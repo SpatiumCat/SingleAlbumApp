@@ -4,6 +4,8 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.logging.HttpLoggingInterceptor
+import ru.netology.singlealbumapp.BuildConfig
 import ru.netology.singlealbumapp.dto.Album
 import java.lang.RuntimeException
 import java.util.concurrent.TimeUnit
@@ -11,9 +13,10 @@ import java.util.concurrent.TimeUnit
 class AlbumRepositoryImpl : AlbumRepository {
 
     private val client = OkHttpClient.Builder()
+        .addInterceptor(HttpLoggingInterceptor(::println).apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
         .connectTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(30, TimeUnit.SECONDS)
         .build()
     private val typeToken = object : TypeToken<Album>() {}
     private val gson = Gson()
@@ -26,6 +29,7 @@ class AlbumRepositoryImpl : AlbumRepository {
     override suspend fun getAlbum(): Album {
         val request = Request.Builder()
             .url(JSON_URL)
+            .addHeader("Authorization", "token ${BuildConfig.GIT_TOKEN}")
             .build()
 
         return client.newCall(request)
@@ -35,5 +39,14 @@ class AlbumRepositoryImpl : AlbumRepository {
             }.let {
                 gson.fromJson(it, typeToken.type)
             }
+    }
+
+    override suspend fun getLimit() {
+        val request = Request.Builder()
+            .url("https://api.github.com/rate_limit")
+            .addHeader("Authorization", "token ${BuildConfig.GIT_TOKEN}")
+            .build()
+        client.newCall(request)
+            .execute()
     }
 }

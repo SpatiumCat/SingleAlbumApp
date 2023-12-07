@@ -20,32 +20,49 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         lifecycle.addObserver(observer)
 
+
         val viewModel = ViewModelProvider(this)[AlbumViewModel::class.java]
         val adapter =
             TrackAdapter(viewModel.data.value?.album?.title ?: "", object : OnInteractionListener {
                 override fun onPlay(track: Track) {
+
+                    viewModel.getPlayingTrack()?.let { playingTrack ->
+                        if (playingTrack.id == track.id) {
+                            observer.mediaPlayer?.start()
+                            viewModel.setTrackPlaying(track)
+                            binding.root.invalidate()
+                            return
+                        }
+                    }
+
                     observer.apply {
                         viewModel.setAllTracksNotPlaying()
                         mediaPlayer?.reset()
                         mediaPlayer?.setDataSource(BuildConfig.BASE_URL + track.file)
                         viewModel.setTrackPlaying(track)
                         viewModel.isFirstTimePlayFlag = false
+
                         mediaPlayer?.setOnCompletionListener {
                             viewModel.setAllTracksNotPlaying()
                             val nextTrack = viewModel.data.value?.album?.tracks?.let { list ->
                                 var index = list.indexOf(track)
                                 list[++index]
                             } ?: return@setOnCompletionListener
+                            it.reset()
                             it.setDataSource(BuildConfig.BASE_URL + nextTrack.file)
                             viewModel.setTrackPlaying(track)
                         }
                     }.play()
+                    binding.root.invalidate()
                 }
 
                 override fun onPause() {
+                    viewModel.setAllTracksNotPlaying()
                     observer.pause()
+                    binding.root.invalidate()
                 }
             })
+
         binding.trackList.adapter = adapter
 
 
@@ -58,8 +75,6 @@ class MainActivity : AppCompatActivity() {
                 artistName.text = state.album.artist
                 year.text = state.album.published
                 genre.text = state.album.genre
-                pauseButton.isVisible = observer.mediaPlayer?.isPlaying ?: false
-                playButton.isVisible = !observer.mediaPlayer?.isPlaying!! ?: true
             }
             adapter.albumName = state.album.title
             adapter.submitList(state.album.tracks)
@@ -78,13 +93,22 @@ class MainActivity : AppCompatActivity() {
             if (viewModel.isFirstTimePlayFlag) {
                 val firstTrack = viewModel.data.value?.album?.tracks?.get(0) ?: return@setOnClickListener
                 viewModel.setAllTracksNotPlaying()
+                observer.mediaPlayer?.reset()
                 observer.mediaPlayer?.setDataSource(BuildConfig.BASE_URL + firstTrack.file) ?: return@setOnClickListener
                 viewModel.setTrackPlaying(firstTrack)
                 viewModel.isFirstTimePlayFlag = false
                 observer.play()
+                binding.root.invalidate()
             } else {
-                observer.play()
+                observer.mediaPlayer?.start()
+                viewModel.getPlayingTrack()?.let { viewModel.setTrackPlaying(it) }
+                binding.root.invalidate()
             }
+        }
+        binding.pauseButton.setOnClickListener {
+            viewModel.setAllTracksNotPlaying()
+            observer.pause()
+            binding.root.invalidate()
         }
     }
 }
