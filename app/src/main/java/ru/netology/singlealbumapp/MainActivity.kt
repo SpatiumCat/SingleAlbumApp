@@ -29,8 +29,9 @@ class MainActivity : AppCompatActivity() {
                     viewModel.getPlayingTrack()?.let { playingTrack ->
                         if (playingTrack.id == track.id) {
                             observer.mediaPlayer?.start()
+                            binding.playButton.isVisible = false
+                            binding.pauseButton.isVisible = true
                             viewModel.setTrackPlaying(track)
-                            binding.root.invalidate()
                             return
                         }
                     }
@@ -41,25 +42,30 @@ class MainActivity : AppCompatActivity() {
                         mediaPlayer?.setDataSource(BuildConfig.BASE_URL + track.file)
                         viewModel.setTrackPlaying(track)
                         viewModel.isFirstTimePlayFlag = false
+                        binding.playButton.isVisible = false
+                        binding.pauseButton.isVisible = true
 
                         mediaPlayer?.setOnCompletionListener {
                             viewModel.setAllTracksNotPlaying()
                             val nextTrack = viewModel.data.value?.album?.tracks?.let { list ->
-                                var index = list.indexOf(track)
+                                var index = list.indexOf(viewModel.getPlayingTrack()?.copy(isNowPlaying = false))
                                 list[++index]
                             } ?: return@setOnCompletionListener
                             it.reset()
                             it.setDataSource(BuildConfig.BASE_URL + nextTrack.file)
-                            viewModel.setTrackPlaying(track)
+                            viewModel.setTrackPlaying(nextTrack)
+                            observer.play()
+                            binding.playButton.isVisible = false
+                            binding.pauseButton.isVisible = true
                         }
                     }.play()
-                    binding.root.invalidate()
                 }
 
                 override fun onPause() {
                     viewModel.setAllTracksNotPlaying()
                     observer.pause()
-                    binding.root.invalidate()
+                    binding.playButton.isVisible = true
+                    binding.pauseButton.isVisible = false
                 }
             })
 
@@ -91,24 +97,29 @@ class MainActivity : AppCompatActivity() {
 
         binding.playButton.setOnClickListener {
             if (viewModel.isFirstTimePlayFlag) {
-                val firstTrack = viewModel.data.value?.album?.tracks?.get(0) ?: return@setOnClickListener
+                val firstTrack =
+                    viewModel.data.value?.album?.tracks?.get(0) ?: return@setOnClickListener
                 viewModel.setAllTracksNotPlaying()
                 observer.mediaPlayer?.reset()
-                observer.mediaPlayer?.setDataSource(BuildConfig.BASE_URL + firstTrack.file) ?: return@setOnClickListener
+                observer.mediaPlayer?.setDataSource(BuildConfig.BASE_URL + firstTrack.file)
+                    ?: return@setOnClickListener
                 viewModel.setTrackPlaying(firstTrack)
                 viewModel.isFirstTimePlayFlag = false
                 observer.play()
-                binding.root.invalidate()
+                binding.playButton.isVisible = false
+                binding.pauseButton.isVisible = true
             } else {
                 observer.mediaPlayer?.start()
                 viewModel.getPlayingTrack()?.let { viewModel.setTrackPlaying(it) }
-                binding.root.invalidate()
+                binding.playButton.isVisible = false
+                binding.pauseButton.isVisible = true
             }
         }
         binding.pauseButton.setOnClickListener {
             viewModel.setAllTracksNotPlaying()
             observer.pause()
-            binding.root.invalidate()
+            binding.playButton.isVisible = true
+            binding.pauseButton.isVisible = false
         }
     }
 }
