@@ -17,7 +17,7 @@ interface OnInteractionListener {
 class TrackAdapter(
     var albumName: String,
     private val onInteractionListener: OnInteractionListener
-): ListAdapter<Track, TrackViewHolder>(TrackDiffCallback()) {
+) : ListAdapter<Track, TrackViewHolder>(TrackDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         val binding = CardSongBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TrackViewHolder(binding, onInteractionListener)
@@ -32,7 +32,7 @@ class TrackAdapter(
 class TrackViewHolder(
     private val binding: CardSongBinding,
     private val onInteractionListener: OnInteractionListener,
-): RecyclerView.ViewHolder(binding.root) {
+) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(albumName: String, track: Track) {
         binding.apply {
@@ -43,10 +43,10 @@ class TrackViewHolder(
             cardDeleteButton.isVisible = track.isNowPlaying
             cardLikeButton.isVisible = track.isNowPlaying
             cardDuration.isVisible = !track.isNowPlaying
-            cardMenuButton.isVisible= track.isNowPlaying
+            cardMenuButton.isVisible = track.isNowPlaying
 
 
-            cardPlayButton.setOnClickListener{
+            cardPlayButton.setOnClickListener {
                 onInteractionListener.onPlay(track)
             }
             cardPauseButton.setOnClickListener {
@@ -56,7 +56,7 @@ class TrackViewHolder(
     }
 }
 
-class TrackDiffCallback: DiffUtil.ItemCallback<Track>() {
+class TrackDiffCallback : DiffUtil.ItemCallback<Track>() {
     override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
         return oldItem.id == newItem.id
     }

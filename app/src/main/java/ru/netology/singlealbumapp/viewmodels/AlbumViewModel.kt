@@ -88,5 +88,4 @@ class AlbumViewModel : ViewModel() {
             repository.getLimit()
         }
     }
-
 }
