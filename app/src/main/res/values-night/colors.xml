@@ -8,12 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="primary">#6A7CFF</color>
-    <color name="background">#F7F7FA</color>
-    <color name="card_background">#FFFFFF</color>
-    <color name="primary_text">#565B65</color>
-    <color name="secondary_name">#9B9A9D</color>
+    <color name="primary">#667AFF</color>
+    <color name="background">#252C4B</color>
+    <color name="card_background">#27325F</color>
+    <color name="primary_text">#FFFFFF</color>
+    <color name="secondary_name">#797F95</color>
     <color name="color_liked">#FFFF0000</color>
-    <color name="button">#F48FB1</color>
 
 </resources>

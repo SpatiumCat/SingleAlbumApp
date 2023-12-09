@@ -5,22 +5,31 @@ plugins {
 
 android {
     namespace 'ru.netology.singlealbumapp'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "ru.netology.singlealbumapp"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    buildFeatures.viewBinding = true
+    buildFeatures.buildConfig true
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\"https://raw.githubusercontent.com/netology-code/andad-homeworks/master/09_multimedia/data/\""
+            //manifestPlaceholders.usesCleartextTraffic = false
+        }
+        debug {
+            //manifestPlaceholders.usesCleartextTraffic = true
+            buildConfigField "String", "BASE_URL", "\"https://raw.githubusercontent.com/netology-code/andad-homeworks/master/09_multimedia/data/\""
+            buildConfigField "String", "GIT_TOKEN", "\"${gitToken}\""
         }
     }
     compileOptions {
@@ -34,10 +43,26 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.9.0'
+    def lifecycle_version = "2.6.2"
+    def okhttp_version = "4.11.0"
+    def gson_version = "2.10.1"
+    def coroutines_version ="1.7.3"
+    def okhttp_logging_version = "4.11.0"
+
+
+
+
+    implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.10.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_version"
+    implementation "com.google.code.gson:gson:$gson_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
